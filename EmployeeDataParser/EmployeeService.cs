@@ -1,27 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace EmployeeService
+namespace EmployeeDataParser
 {
     public class EmployeeService
     {
         private List<Employee> Employees { get; set; }
-        private Parser FileParser { get; set; }
-        private string PrintFormat { get; set; }
+        private IParser? FileParser { get; set; }
+        private string? PrintFormat { get; set; }
         public EmployeeService()
         {
             Employees = new List<Employee>();
-            FileParser = new Parser();
         }
 
         public int AddEmployeesFromFile(string file)
         {   
-            List<Employee> employees = FileParser.ParseFile(file);
+            if(FileParser is null)
+            {
+                FileParser = GetFileParser();
+            }
+
+            List<Employee> employees = FileParser.Parse(GetFileContent(file), out int[] fieldWidth);
             Employees.AddRange(employees);
+            Employee.UpdatePrintFormat(fieldWidth);
+
             return employees.Count;
+        }
+
+        private string[] GetFileContent(string file)
+        {
+            return File.ReadAllLines(file); ;
+        }
+
+        private IParser GetFileParser()
+        {
+            return new Parser();
         }
 
         public int GetEmployeeCount()

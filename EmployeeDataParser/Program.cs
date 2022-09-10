@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace EmployeeService
+namespace EmployeeDataParser
 {
     internal class Program
     {

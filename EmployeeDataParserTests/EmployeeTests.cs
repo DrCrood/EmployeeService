@@ -1,4 +1,4 @@
-﻿using EmployeeService;
+﻿using EmployeeDataParser;
 using Xunit;
 using System;
 using System.Collections.Generic;
@@ -35,28 +35,18 @@ namespace EmployeeDataParserTests
         }
 
         [Theory]
-        [MemberData(nameof(Data))]
-        public void ToString_VariousFieldWidth_PrintLineLengthShouldBeCorrect(List<Employee> employees, int expected)
+        [InlineData(new int[] { 1, 1, 4, 3}, 21)]
+        [InlineData(new int[] { 5, 5, 5, 5 }, 32)]
+        public void ToString_VariousFieldWidth_PrintLineLengthShouldBeCorrect(int[] width, int expected)
         {
             // Arrange
-
+            Employee employee = new Employee("L", "F", "mail", "red", DateTime.Parse("2001-01-01"));
+            Employee.UpdatePrintFormat(width);
             // Act
-            var result = employees[0].ToString();
+            var result = employee.ToString();
 
             // Assert
             Assert.Equal(expected, result.Length);
-        }
-
-        public static IEnumerable<object[]> Data()
-        {
-            DateTime dob = DateTime.Parse("2001-01-01");
-
-            return new List<object[]>
-            {
-                new object[] { new List<Employee> { new Employee("L", "F", "mail", "Col", dob) }, 21 },
-                new object[] { new List<Employee> { new Employee("L", "F", "mail", "Col", dob ),
-                                                    new Employee("Lname", "Fname", "Email", "Color", dob )}, 32 },
-            };
         }
     }
 }

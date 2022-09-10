@@ -3,46 +3,30 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace EmployeeService
+namespace EmployeeDataParser
 {
-    public class Parser
+    public class Parser : IParser
     {
-        public char Delimiter { get; set; }
-        private static int[] MaxFieldWidth { get; set; } = new int[4];
+        private char Delimiter { get; set; }
+        private int[] MaxFieldWidth { get; set; } = new int[4];
 
-        public bool SetDelimiter(string line)
+        private void SetDelimiter(string line)
         {
-            try
+            if (line.Contains('|'))
             {
-                if (line.Contains('|'))
-                {
-                    this.Delimiter = '|';
-                }
-                else if (line.Contains(','))
-                {
-                    this.Delimiter = ',';
-                }
-                else
-                {
-                    this.Delimiter = ' ';
-                }
-                return true;
+                this.Delimiter = '|';
             }
-            catch(Exception)
+            else if (line.Contains(','))
             {
-                return false;
+                this.Delimiter = ',';
+            }
+            else
+            {
+                this.Delimiter = ' ';
             }
         }
 
-        private void UpdateMaxFieldWidth(string[] record)
-        {
-            MaxFieldWidth[0] = record[0].Length > MaxFieldWidth[0] ? record[0].Length : MaxFieldWidth[0];
-            MaxFieldWidth[1] = record[1].Length > MaxFieldWidth[1] ? record[1].Length : MaxFieldWidth[1];
-            MaxFieldWidth[2] = record[2].Length > MaxFieldWidth[2] ? record[2].Length : MaxFieldWidth[2];
-            MaxFieldWidth[3] = record[3].Length > MaxFieldWidth[3] ? record[3].Length : MaxFieldWidth[3];
-        }
-
-        private Employee Parse(String record)
+        private Employee ParseLine(String record, int[] width)
         {
             string[] r = record.Split(Delimiter).Where(f => !String.IsNullOrWhiteSpace(f)).ToArray();
 
@@ -51,30 +35,37 @@ namespace EmployeeService
                 Console.WriteLine("Error: Invalid data {0}", record);
                 return null;
             }
-            UpdateMaxFieldWidth(r);
-            return new(r[0].Trim(), r[1].Trim(), r[2].Trim(), r[3].Trim(), birthDay);
+
+            string lastName = r[0].Trim();
+            string firstName = r[1].Trim();
+            string email = r[2].Trim();
+            string favColor = r[3].Trim();
+
+            width[0] = lastName.Length > width[0] ? lastName.Length : width[0];
+            width[1] = firstName.Length > width[1] ? firstName.Length : width[1];
+            width[2] = email.Length > width[2] ? email.Length : width[2];
+            width[3] = favColor.Length > width[3] ? favColor.Length : width[3];
+
+            return new(lastName, firstName, email, favColor, birthDay);
         }
 
-        public string[] GetFileContent(string file)
-        {
-            return File.ReadAllLines(file); ;
-        }
 
-        public List<Employee> ParseFile(string file)
+
+        public List<Employee> Parse(string[] lines, out int[] fieldWidth)
         {
-            string[] lines = GetFileContent(file);
             SetDelimiter(lines[0]);
+            fieldWidth = new int[4];
+
             List<Employee> employees = new List<Employee>();
             foreach (string line in lines)
             {
-                Employee e = Parse(line);
+                Employee e = ParseLine(line, fieldWidth);
                 if (e is not null)
                 {
                     employees.Add(e);
                 }
             }
 
-            Employee.UpdatePrintFormat(MaxFieldWidth);
             return employees;
         }
     }
