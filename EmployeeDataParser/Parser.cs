@@ -8,7 +8,6 @@ namespace EmployeeDataParser
     public class Parser : IParser
     {
         private char Delimiter { get; set; }
-        private int[] MaxFieldWidth { get; set; } = new int[4];
 
         private void SetDelimiter(string line)
         {
@@ -49,17 +48,21 @@ namespace EmployeeDataParser
             return new(lastName, firstName, email, favColor, birthDay);
         }
 
-
-
-        public List<Employee> Parse(string[] lines, out int[] fieldWidth)
+        /// <summary>
+        /// Parser a array of strings into a list of Employee objects.
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <param name="fieldMaxWidth"></param>
+        /// <returns>List of Employees and fieldMaxWidth as array</returns>
+        public List<Employee> Parse(string[] lines, out int[] fieldMaxWidth)
         {
             SetDelimiter(lines[0]);
-            fieldWidth = new int[4];
+            fieldMaxWidth = new int[4];
 
             List<Employee> employees = new List<Employee>();
             foreach (string line in lines)
             {
-                Employee e = ParseLine(line, fieldWidth);
+                Employee e = ParseLine(line, fieldMaxWidth);
                 if (e is not null)
                 {
                     employees.Add(e);
