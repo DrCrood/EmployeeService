@@ -9,6 +9,8 @@ namespace EmployeeService
     public class Parser
     {
         public char Delimiter { get; set; }
+        private static int[] MaxFieldWidth { get; set; } = new int[4];
+
         public bool SetDelimiter(string line)
         {
             try
@@ -33,6 +35,14 @@ namespace EmployeeService
             }
         }
 
+        private void UpdateMaxFieldWidth(string[] record)
+        {
+            MaxFieldWidth[0] = record[0].Length > MaxFieldWidth[0] ? record[0].Length : MaxFieldWidth[0];
+            MaxFieldWidth[1] = record[1].Length > MaxFieldWidth[1] ? record[1].Length : MaxFieldWidth[1];
+            MaxFieldWidth[2] = record[2].Length > MaxFieldWidth[2] ? record[2].Length : MaxFieldWidth[2];
+            MaxFieldWidth[3] = record[3].Length > MaxFieldWidth[3] ? record[3].Length : MaxFieldWidth[3];
+        }
+
         private Employee Parse(String record)
         {
             string[] r = record.Split(Delimiter).Where(f => !String.IsNullOrWhiteSpace(f)).ToArray();
@@ -42,13 +52,18 @@ namespace EmployeeService
                 Console.WriteLine("Error: Invalid data {0}", record);
                 return null;
             }
-
+            UpdateMaxFieldWidth(r);
             return new(r[0].Trim(), r[1].Trim(), r[2].Trim(), r[3].Trim(), birthDay);
+        }
+
+        public string[] GetFileContent(string file)
+        {
+            return File.ReadAllLines(file); ;
         }
 
         public List<Employee> ParseFile(string file)
         {
-            string[] lines = File.ReadAllLines(file);
+            string[] lines = GetFileContent(file);
             SetDelimiter(lines[0]);
             List<Employee> employees = new List<Employee>();
             foreach (string line in lines)
@@ -59,6 +74,8 @@ namespace EmployeeService
                     employees.Add(e);
                 }
             }
+
+            Employee.UpdatePrintFormat(MaxFieldWidth);
             return employees;
         }
     }
