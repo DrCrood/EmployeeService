@@ -1,0 +1,10 @@
+ Windy  March   windy3@outlook.com   purple   2003-10-02T00:00:00
+ Hot   July   hot7@gmail.com   Red   2004-06-03T00:00:00
+ Candy   Sweet   candy@gmail.com   Red   2005-03-05T00:00:00
+ Lucky   Boy   boy@google.com   Blue   2006-07-07T00:00:00
+ White   Snow   snow@yahoo.com   Blue   2009-08-08T00:00:00
+ Hope   Right   hope@google.com   Green   2003-08-08T00:00:00
+ Young    Man   yman@outlook.com   Red   2002-08-09T00:00:00
+ Smile   Small   ssmile@email.com   Pink   2003-09-10T00:00:00
+ Flower   Red   redflower@email.com   Green   2004-09-10T00:00:00
+ April   June   april@gmail.com   Green   2005-02-11T00:00:00
