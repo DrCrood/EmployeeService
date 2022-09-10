@@ -3,3 +3,7 @@ EmployeeDataParser/bin/*
 EmployeeDataParser/obj/*
 EmployeeDataParserTests/bin/*
 EmployeeDataParserTests/obj/*
+EmployeeServiceAPI/bin/*
+EmployeeServiceAPI/obj/*
+EmployeeServiceAPITests/bin/*
+EmployeeServiceAPITests/obj/*
