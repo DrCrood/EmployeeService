@@ -56,10 +56,14 @@ namespace EmployeeDataParser
         /// <returns>List of Employees and fieldMaxWidth as array</returns>
         public List<Employee> Parse(string[] lines, out int[] fieldMaxWidth)
         {
-            SetDelimiter(lines[0]);
-            fieldMaxWidth = new int[4];
-
             List<Employee> employees = new List<Employee>();
+            fieldMaxWidth = new int[4];
+            if (lines is null || lines.Length < 1)
+            {
+                return employees;
+            }
+
+            SetDelimiter(lines[0]);            
             foreach (string line in lines)
             {
                 Employee e = ParseLine(line, fieldMaxWidth);

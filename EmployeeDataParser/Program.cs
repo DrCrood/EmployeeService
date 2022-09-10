@@ -30,7 +30,7 @@ namespace EmployeeDataParser
 
             employeeService.PrintByColorAndLastName();
             employeeService.PrintByDateOfBirth();
-            employeeService.PrintByLastName();
+            employeeService.PrintByLastNameDesc();
         }
     }
 }
