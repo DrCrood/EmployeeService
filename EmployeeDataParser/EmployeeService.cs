@@ -8,8 +8,8 @@ namespace EmployeeService
 {
     public class EmployeeService
     {
-        List<Employee> Employees { get; set; }
-        Parser FileParser { get; set; }
+        private List<Employee> Employees { get; set; }
+        private Parser FileParser { get; set; }
         private string PrintFormat { get; set; }
         public EmployeeService()
         {
@@ -24,37 +24,41 @@ namespace EmployeeService
             return employees.Count;
         }
 
-        public void PrintByColorAndLastName()
+        public int GetEmployeeCount()
+        {
+            return Employees.Count;
+        }
+
+        public void SetPrintFormat()
         {
             PrintFormat = $"{{0,-{Employees.Count.ToString().Length}}} {{1}}";
-            var orderedEmployee = Employees.OrderBy(e => e.FavoriteColor).ThenBy(e => e.LastName).ToList();
-            int i = 1;
-            Console.WriteLine();
-            foreach (Employee p in orderedEmployee)
-            {
-                Console.WriteLine(PrintFormat, i++, p.ToString());
-            }
+        }
+
+        public void PrintByColorAndLastName()
+        {
+            var orderedEmployees = Employees.OrderBy(e => e.FavoriteColor).ThenBy(e => e.LastName).ToList();
+            Print(orderedEmployees);
         }
 
         public void PrintByDateOfBirth()
         {
-            Console.WriteLine();
-            var orderedEmployee = Employees.OrderBy(e => e.DateOfBirth).ToList();
-            int i = 1;
-            foreach (Employee p in orderedEmployee)
-            {
-                Console.WriteLine(PrintFormat, i++, p.ToString());
-            }
+            var orderedEmployees = Employees.OrderBy(e => e.DateOfBirth).ToList();
+            Print(orderedEmployees);
         }
 
         public void PrintByLastName()
         {
-            int i = 1;
+            var orderedEmployees = Employees.OrderByDescending(e => e.LastName).ToList();
+            Print(orderedEmployees);
+        }
+
+        private void Print(List<Employee> employees)
+        {
             Console.WriteLine();
-            var orderedEmployee = Employees.OrderByDescending(e => e.LastName).ToList();
-            foreach (Employee p in orderedEmployee)
+            int i = 1;
+            foreach (Employee e in employees)
             {
-                Console.WriteLine(PrintFormat, i++, p.ToString());
+                Console.WriteLine(PrintFormat, i++, e.ToString());
             }
         }
     }

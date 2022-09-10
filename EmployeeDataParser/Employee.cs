@@ -13,7 +13,7 @@ namespace EmployeeService
         public string Email { get; set; }
         public string FavoriteColor { get; set; }
         public DateTime DateOfBirth { get; set; }
-        private static string PrintFormat { get; set; }
+        private static string PrintFormatString { get; set; }
 
         public Employee(string lastName, string firstName, string email, string favoriteColor, DateTime dateOfBirth)
         {
@@ -23,18 +23,27 @@ namespace EmployeeService
             FavoriteColor = favoriteColor;
             DateOfBirth = dateOfBirth;
         }
-        public static void UpdatePrintFormat(int[] width)
+        public static bool UpdatePrintFormat(int[] width)
         {
-            PrintFormat = $"{{0,-{width[0]}}} {{1,-{width[1]}}} {{2,-{width[2]}}} {{3,-{width[3]}}} {{4:d}}";
+            if(width.Length == 4)
+            {
+                PrintFormatString = $"{{0,-{width[0]}}} {{1,-{width[1]}}} {{2,-{width[2]}}} {{3,-{width[3]}}} {{4:d}}";
+                return true;
+            }
+            else
+            {
+                PrintFormatString = "";
+                return false;
+            }
         }
 
         public override string ToString()
         {
-            if (PrintFormat is null)
+            if (String.IsNullOrEmpty(PrintFormatString))
             {
                 return String.Join(" ", LastName, FirstName, Email, FavoriteColor, DateOfBirth.ToString("d"));
             }
-            return String.Format(PrintFormat, LastName, FirstName, Email, FavoriteColor, DateOfBirth);
+            return String.Format(PrintFormatString, LastName, FirstName, Email, FavoriteColor, DateOfBirth);
         }
     }
 }
