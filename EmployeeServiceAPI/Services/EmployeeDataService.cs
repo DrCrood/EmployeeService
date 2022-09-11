@@ -30,10 +30,17 @@ namespace EmployeeServiceAPI.Services
         public Employee AddEmployee(string record)
         {
             Employee employee = RecordParser.ParseLine(record, true);
-            if(employee is not null)
+            if(employee is null)
             {
-                Employees.Add(employee);
+                return null;
             }
+
+            var ee = Employees.FirstOrDefault(e => e.LastName == employee.LastName && e.FirstName == employee.FirstName && e.DateOfBirth == employee.DateOfBirth);
+            if (ee is not null)
+            {
+                return null;
+            }
+            Employees.Add(employee);
 
             return employee;
         }

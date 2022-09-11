@@ -15,7 +15,7 @@ namespace EmployeeServiceAPI.Controllers
     public class EmployeeServiceController : ControllerBase
     {
 
-        private readonly ILogger<EmployeeServiceController> _logger;
+        private readonly ILogger _logger;
         private readonly IEmployeeDataService _dataService;
 
         public EmployeeServiceController(ILogger<EmployeeServiceController> logger, IEmployeeDataService dataService)
@@ -35,6 +35,7 @@ namespace EmployeeServiceAPI.Controllers
                 return null;
             }
 
+            _logger.LogInformation("Post success.");
             return _dataService.AddEmployee(record);
         }
 
