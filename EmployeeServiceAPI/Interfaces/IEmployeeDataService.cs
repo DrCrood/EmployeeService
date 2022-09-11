@@ -1,16 +1,16 @@
 ﻿using EmployeeDataParser;
+using EmployeeDataParser.Interfaces;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace EmployeeServiceAPI.Interface
 {
     public interface IEmployeeDataService
     {
-        Parser RecordParser { get; }
+        IParser RecordParser { get; }
 
-        Employee AddEmployee(string record);
-        List<Employee> GetEmployeeSortByBirthDate();
-        List<Employee> GetEmployeeSortByFavriteColor();
-        List<Employee> GetEmployeeSortByLastName();
+        public Employee AddEmployee(string record);
+        public List<Employee> GetEmployeeSortByBirthDate();
+        public List<Employee> GetEmployeeSortByFavriteColor();
+        public List<Employee> GetEmployeeSortByLastName();
     }
 }

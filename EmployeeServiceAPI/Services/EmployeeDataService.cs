@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using EmployeeDataParser;
+using EmployeeDataParser.Interfaces;
 using EmployeeServiceAPI.Interface;
 
 namespace EmployeeServiceAPI.Services
@@ -11,12 +12,12 @@ namespace EmployeeServiceAPI.Services
     public class EmployeeDataService : IEmployeeDataService
     {
         private List<Employee> Employees { get; set; }
-        public Parser RecordParser { get; private set; }
+        public IParser RecordParser { get; private set; }
 
-        public EmployeeDataService()
+        public EmployeeDataService(IParser parser)
         {
             Employees = new List<Employee>();
-            RecordParser = new Parser();
+            RecordParser = parser;
             LoadEmployeeData();
         }
 

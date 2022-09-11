@@ -1,30 +1,35 @@
 ﻿using System;
 using Xunit;
+using Moq;
 using FluentAssertions;
 using EmployeeServiceAPI.Services;
 using System.Linq;
+using EmployeeDataParser;
+using EmployeeDataParser.Interfaces;
 
 namespace EmployeeServiceAPITests.Services
 {
     public class EmployeeDataServiceTests
     {
+        Mock<IParser> mockFileParser;
+
+        public EmployeeDataServiceTests()
+        {
+            mockFileParser = new Mock<IParser>();
+            mockFileParser.Setup(f => f.ParseLine(It.IsAny<string>(), It.IsAny<bool>())).Returns((string line, bool reset) =>
+            {
+                return line switch
+                {
+                    "Invalid" => null,
+                    "Valid" => GetTestEmployee(),
+                    "Duplicate" => GetADuplicateEmployee(),
+                    _ => null
+                };
+            });
+        }
         public EmployeeDataService GetService()
         {
-            return new EmployeeDataService();
-        }
-
-        [Fact]
-        public void AddEmployee_ValidRecordData_ShouldAddEmployeeToList()
-        {
-            // Arrange
-            var service = GetService();
-            string record = " Smile   Small   ssmile@email.com   Pink   2003-09-10T00:00:00";
-
-            // Act
-            var result = service.AddEmployee(record);
-
-            // Assert
-            result.Should().NotBeNull();
+            return new EmployeeDataService(mockFileParser.Object);
         }
 
         [Fact]
@@ -32,10 +37,35 @@ namespace EmployeeServiceAPITests.Services
         {
             // Arrange
             var service = GetService();
-            string record = " Smile   Small |  ssmile@email.com   Pink   2003-09-10T00:00:00";
 
             // Act
-            var result = service.AddEmployee(record);
+            var result = service.AddEmployee("Invalid");
+
+            // Assert
+            result.Should().BeNull();
+        }
+
+        [Fact]
+        public void AddEmployee_ValidRecordData_AddShouldSucceed()
+        {
+            // Arrange
+            var service = GetService();
+
+            // Act
+            var result = service.AddEmployee("Valid");
+
+            // Assert
+            result.Should().BeEquivalentTo(GetTestEmployee());
+        }
+
+        [Fact]
+        public void AddEmployee_DuplicateEmployeeData_AddShouldFail()
+        {
+            // Arrange
+            var service = GetService();
+
+            // Act
+            var result = service.AddEmployee("Duplicate");
 
             // Assert
             result.Should().BeNull();
@@ -45,7 +75,7 @@ namespace EmployeeServiceAPITests.Services
         public void GetEmployeeSortByFavriteColor_Sort_ShouldSortByFavColor()
         {
             // Arrange
-            var service = new EmployeeDataService();
+            var service = GetService();
 
             // Act
             var result = service.GetEmployeeSortByFavriteColor();
@@ -59,7 +89,7 @@ namespace EmployeeServiceAPITests.Services
         public void GetEmployeeSortByLastName_Sort_ShouldSortByLastName()
         {
             // Arrange
-            var service = new EmployeeDataService();
+            var service = GetService();
 
             // Act
             var result = service.GetEmployeeSortByLastName();
@@ -73,7 +103,7 @@ namespace EmployeeServiceAPITests.Services
         public void GetEmployeeSortByBirthDate_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var service = new EmployeeDataService();
+            var service = GetService();
 
             // Act
             var result = service.GetEmployeeSortByBirthDate();
@@ -81,6 +111,16 @@ namespace EmployeeServiceAPITests.Services
 
             // Assert
             dobs.Should().BeEquivalentTo("2/2/2000 11/11/2001 6/1/2002 4/11/2004 11/14/2009");
+        }
+
+        private Employee GetTestEmployee()
+        {
+            return new Employee("Fname", "Lname", "Email", "FavColor", DateTime.Parse("2001-01-01"));
+        }
+
+        private Employee GetADuplicateEmployee()
+        {
+            return GetService().GetEmployeeSortByLastName().FirstOrDefault();
         }
     }
 }
