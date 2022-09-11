@@ -26,7 +26,6 @@ namespace EmployeeDataParser
             List<Employee> employees = FileParser.Parse(GetFileContent(file), out int[] fieldWidth);
             Employees.AddRange(employees);
             Employee.UpdatePrintFormat(fieldWidth);
-
             return employees.Count;
         }
 
@@ -84,6 +83,10 @@ namespace EmployeeDataParser
         }
         private void Print(List<Employee> employees)
         {
+            if(employees.Count < 1)
+            {
+                return;
+            }
             Console.WriteLine();
             int i = 1;
             if (PrintFormat is null)

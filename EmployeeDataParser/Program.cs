@@ -9,7 +9,7 @@ namespace EmployeeDataParser
         {
             if (args.Length < 1)
             {
-                Console.WriteLine("Usuage: TextParser list-of-files");
+                Console.WriteLine("Usage: EmployeeDataParser list-of-files");
                 return;
             }
 
