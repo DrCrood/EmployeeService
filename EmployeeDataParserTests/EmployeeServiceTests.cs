@@ -77,17 +77,19 @@ namespace EmployeeDataParserTests
         }
 
         [Fact]
-        public void SetPrintFormat_CallAnyPrintMethod_ShouldCallSetPrintFormat()
+        public void Print_CallAnyPrintMethod_ShouldPrintWithoutError()
         {
             // Arrange
             string file = "test";
+            mockEmployeeService.CallBase = true;
             mockEmployeeService.Setup(s => s.GetFileContent(It.IsAny<string>())).Returns(GetTestFileContent());
+            mockEmployeeService.Object.AddEmployeesFromFile(file);
 
             // Act
-            mockEmployeeService.Object.PrintByColorAndLastName();
+            Action act = () => mockEmployeeService.Object.PrintEmployeesByFavcolorAndLastName();
 
             // Assert
-            mockEmployeeService.Verify(s => s.SetPrintFormat(), Times.Once);
+            act.Should().NotThrow();
         }
 
         [Fact]
@@ -99,7 +101,7 @@ namespace EmployeeDataParserTests
             mockEmployeeService.Object.AddEmployeesFromFile(file);
 
             // Act
-            var result = mockEmployeeService.Object.GetEmployeeListSortByColorAndLastName();
+            var result = mockEmployeeService.Object.GetEmployeesSortedByFavColorAndLastName();
             var colors = string.Join(" ", result.Select(e => e.FavoriteColor).ToList());
             var lastNames = string.Join(" ", result.Select(e => e.LastName).ToList());
 
@@ -117,7 +119,7 @@ namespace EmployeeDataParserTests
             mockEmployeeService.Object.AddEmployeesFromFile(file);
 
             // Act
-            var result = mockEmployeeService.Object.GetEmployeeListSortByDateOfBirth();
+            var result = mockEmployeeService.Object.GetEmployeesSortedByDateOfBirth();
             var dobs = string.Join(" ", result.Select(e => e.DateOfBirth.ToShortDateString()).ToList());
 
             // Assert
@@ -133,7 +135,7 @@ namespace EmployeeDataParserTests
             mockEmployeeService.Object.AddEmployeesFromFile(file);
 
             // Act
-            var result = mockEmployeeService.Object.GetEmployeeListSortByLastNameDesc();
+            var result = mockEmployeeService.Object.GetEmployeesSortedByLastNameDesc();
             var lastNames = string.Join(" ", result.Select(e => e.LastName).ToList());
 
             // Assert

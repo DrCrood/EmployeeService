@@ -6,13 +6,12 @@ namespace EmployeeDataParser
     {
         int AddEmployeesFromFile(string file);
         int GetEmployeeCount();
-        List<Employee> GetEmployeeListSortByColorAndLastName();
-        List<Employee> GetEmployeeListSortByDateOfBirth();
-        List<Employee> GetEmployeeListSortByLastNameDesc();
+        List<Employee> GetEmployeesSortedByFavColorAndLastName();
+        List<Employee> GetEmployeesSortedByDateOfBirth();
+        List<Employee> GetEmployeesSortedByLastNameDesc();
         string[] GetFileContent(string file);
-        void PrintByColorAndLastName();
-        void PrintByDateOfBirth();
-        void PrintByLastNameDesc();
-        void SetPrintFormat();
+        void PrintEmployeesByFavcolorAndLastName();
+        void PrintEmployeesByDateOfBirth();
+        void PrintEmployeesByLastNameDesc();
     }
 }

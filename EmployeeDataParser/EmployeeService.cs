@@ -44,40 +44,40 @@ namespace EmployeeDataParser
             return Employees.Count;
         }
 
-        public virtual void SetPrintFormat()
+        private void SetPrintFormat()
         {
             PrintFormat = $"{{0,-{Employees.Count.ToString().Length}}} {{1}}";
         }
 
-        public void PrintByColorAndLastName()
+        public void PrintEmployeesByFavcolorAndLastName()
         {
-            var orderedEmployees = GetEmployeeListSortByColorAndLastName();
+            var orderedEmployees = GetEmployeesSortedByFavColorAndLastName();
             Print(orderedEmployees);
         }
 
-        public void PrintByDateOfBirth()
+        public void PrintEmployeesByDateOfBirth()
         {
-            var orderedEmployees = GetEmployeeListSortByDateOfBirth();
+            var orderedEmployees = GetEmployeesSortedByDateOfBirth();
             Print(orderedEmployees);
         }
 
-        public void PrintByLastNameDesc()
+        public void PrintEmployeesByLastNameDesc()
         {
-            var orderedEmployees = GetEmployeeListSortByLastNameDesc();
+            var orderedEmployees = GetEmployeesSortedByLastNameDesc();
             Print(orderedEmployees);
         }
 
-        public List<Employee> GetEmployeeListSortByColorAndLastName()
+        public List<Employee> GetEmployeesSortedByFavColorAndLastName()
         {
             return Employees.OrderBy(e => e.FavoriteColor).ThenBy(e => e.LastName).ToList();
         }
 
-        public List<Employee> GetEmployeeListSortByDateOfBirth()
+        public List<Employee> GetEmployeesSortedByDateOfBirth()
         {
             return Employees.OrderBy(e => e.DateOfBirth).ToList();
         }
 
-        public List<Employee> GetEmployeeListSortByLastNameDesc()
+        public List<Employee> GetEmployeesSortedByLastNameDesc()
         {
             return Employees.OrderByDescending(e => e.LastName).ToList();
         }

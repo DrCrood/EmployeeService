@@ -28,9 +28,9 @@ namespace EmployeeDataParser
                 }
             }
 
-            employeeService.PrintByColorAndLastName();
-            employeeService.PrintByDateOfBirth();
-            employeeService.PrintByLastNameDesc();
+            employeeService.PrintEmployeesByFavcolorAndLastName();
+            employeeService.PrintEmployeesByDateOfBirth();
+            employeeService.PrintEmployeesByLastNameDesc();
         }
     }
 }
