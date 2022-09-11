@@ -28,20 +28,19 @@ namespace EmployeeServiceAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<Employee> PostRecordAsync([FromBody] string record)
+        public Employee AddEmployee([FromBody] string record)
         {
             if(String.IsNullOrEmpty(record))
             {
                 return null;
             }
 
-            return _dataService.Parse(record);
+            return _dataService.AddEmployee(record);
         }
 
         [HttpGet]
         [Route("name")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IEnumerable<Employee> GetRecordsSoerByName()
         {
@@ -51,7 +50,6 @@ namespace EmployeeServiceAPI.Controllers
         [HttpGet]
         [Route("birthdate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IEnumerable<Employee> GetRecordsSortByDob()
         {
@@ -61,7 +59,6 @@ namespace EmployeeServiceAPI.Controllers
         [HttpGet]
         [Route("color")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IEnumerable<Employee> GetRecordSortByColor()
         {

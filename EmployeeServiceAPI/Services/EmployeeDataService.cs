@@ -27,17 +27,16 @@ namespace EmployeeServiceAPI.Services
             Employees.AddRange(employees);
         }
 
-        public Employee Parse(string record)
+        public Employee AddEmployee(string record)
         {
-            return RecordParser.ParseLine(record, true);
-        }
+            Employee employee = RecordParser.ParseLine(record, true);
+            if(employee is not null)
+            {
+                Employees.Add(employee);
+            }
 
-        public bool AddEmployee(Employee employee)
-        {
-            Employees.Add(employee);
-            return true;
+            return employee;
         }
-
 
         public List<Employee> GetEmployeeSortByFavriteColor()
         {
