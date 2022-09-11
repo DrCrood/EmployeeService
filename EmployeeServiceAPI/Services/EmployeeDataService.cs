@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Json;
 using EmployeeDataParser;
 using EmployeeServiceAPI.Interface;
 
@@ -16,11 +17,14 @@ namespace EmployeeServiceAPI.Services
         {
             Employees = new List<Employee>();
             RecordParser = new Parser();
+            LoadEmployeeData();
         }
 
-        private void LoadData()
+        private void LoadEmployeeData()
         {
-
+            string json = File.ReadAllText("./Data/EmployeeData.json");
+            List<Employee> employees = JsonSerializer.Deserialize<List<Employee>>(json);
+            Employees.AddRange(employees);
         }
 
         public Employee Parse(string record)

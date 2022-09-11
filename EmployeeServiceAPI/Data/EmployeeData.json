@@ -1,74 +1,72 @@
-{
-  "Employee": [
-    {
-      "LastName": "Cookie",
-      "FirstName": "Baker",
-      "Email": "cbaker@outlook.com",
-      "FavoriteColor": "Pink",
-      "DateOfBirth": "2002-06-01T00:00:00"
-    },
-    {
-      "LastName": "Tree",
-      "FirstName": "Green",
-      "Email": "green@google.com",
-      "FavoriteColor": "purple",
-      "DateOfBirth": "2004-04-11T00:00:00"
-    },
-    {
-      "LastName": "Chen",
-      "FirstName": "Liya",
-      "Email": "liya@gmail.com",
-      "FavoriteColor": "purple",
-      "DateOfBirth": "2006-05-15T00:00:00"
-    },
-    {
-      "LastName": "Car",
-      "FirstName": "Fast",
-      "Email": "fastcar@google.com",
-      "FavoriteColor": "Blue",
-      "DateOfBirth": "2002-01-01T00:00:00"
-    },
-    {
-      "LastName": "Handy",
-      "FirstName": "Man",
-      "Email": "man@outlook.com",
-      "FavoriteColor": "Pink",
-      "DateOfBirth": "2000-02-02T00:00:00"
-    },
-    {
-      "LastName": "Fox",
-      "FirstName": "Smart",
-      "Email": "fox@outlook.com",
-      "FavoriteColor": "Green",
-      "DateOfBirth": "2001-11-11T00:00:00"
-    },
-    {
-      "LastName": "Well",
-      "FirstName": "Goodname",
-      "Email": "goodname@gmail.com",
-      "FavoriteColor": "Green",
-      "DateOfBirth": "2005-05-25T00:00:00"
-    },
-    {
-      "LastName": "All",
-      "FirstName": "Bills",
-      "Email": "bills@outlook.com",
-      "FavoriteColor": "Green",
-      "DateOfBirth": "2008-10-15T00:00:00"
-    },
-    {
-      "LastName": "Five",
-      "FirstName": "High",
-      "Email": "high5@yahoo.com",
-      "FavoriteColor": "Green",
-      "DateOfBirth": "2003-10-12T00:00:00"
-    },
-    {
-      "LastName": "Arm",
-      "FirstName": "Strong",
-      "Email": "armstrong@facebook.com",
-      "FavoriteColor": "Blue",
-      "DateOfBirth": "2009-11-14T00:00:00"
-    }
-  ]
-}
+[
+  {
+    "LastName": "Cookie",
+    "FirstName": "Baker",
+    "Email": "cbaker@outlook.com",
+    "FavoriteColor": "Pink",
+    "DateOfBirth": "2002-06-01T00:00:00"
+  },
+  {
+    "LastName": "Tree",
+    "FirstName": "Green",
+    "Email": "green@google.com",
+    "FavoriteColor": "purple",
+    "DateOfBirth": "2004-04-11T00:00:00"
+  },
+  {
+    "LastName": "Chen",
+    "FirstName": "Liya",
+    "Email": "liya@gmail.com",
+    "FavoriteColor": "purple",
+    "DateOfBirth": "2006-05-15T00:00:00"
+  },
+  {
+    "LastName": "Car",
+    "FirstName": "Fast",
+    "Email": "fastcar@google.com",
+    "FavoriteColor": "Blue",
+    "DateOfBirth": "2002-01-01T00:00:00"
+  },
+  {
+    "LastName": "Handy",
+    "FirstName": "Man",
+    "Email": "man@outlook.com",
+    "FavoriteColor": "Pink",
+    "DateOfBirth": "2000-02-02T00:00:00"
+  },
+  {
+    "LastName": "Fox",
+    "FirstName": "Smart",
+    "Email": "fox@outlook.com",
+    "FavoriteColor": "Green",
+    "DateOfBirth": "2001-11-11T00:00:00"
+  },
+  {
+    "LastName": "Well",
+    "FirstName": "Goodname",
+    "Email": "goodname@gmail.com",
+    "FavoriteColor": "Green",
+    "DateOfBirth": "2005-05-25T00:00:00"
+  },
+  {
+    "LastName": "All",
+    "FirstName": "Bills",
+    "Email": "bills@outlook.com",
+    "FavoriteColor": "Green",
+    "DateOfBirth": "2008-10-15T00:00:00"
+  },
+  {
+    "LastName": "Five",
+    "FirstName": "High",
+    "Email": "high5@yahoo.com",
+    "FavoriteColor": "Green",
+    "DateOfBirth": "2003-10-12T00:00:00"
+  },
+  {
+    "LastName": "Arm",
+    "FirstName": "Strong",
+    "Email": "armstrong@facebook.com",
+    "FavoriteColor": "Blue",
+    "DateOfBirth": "2009-11-14T00:00:00"
+  }
+]
