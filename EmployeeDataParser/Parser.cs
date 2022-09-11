@@ -27,6 +27,25 @@ namespace EmployeeDataParser
 
         private Employee ParseLine(String record, int[] width)
         {
+            Employee employee = ParseLine(record);
+
+            if(employee is not null)
+            {
+                width[0] = employee.LastName.Length > width[0] ? employee.LastName.Length : width[0];
+                width[1] = employee.FirstName.Length > width[1] ? employee.FirstName.Length : width[1];
+                width[2] = employee.Email.Length > width[2] ? employee.Email.Length : width[2];
+                width[3] = employee.FavoriteColor.Length > width[3] ? employee.FavoriteColor.Length : width[3];
+            }
+
+            return employee;
+        }
+
+        public Employee ParseLine(String record, bool resetDelimiter = false)
+        {
+            if(resetDelimiter)
+            {
+                SetDelimiter(record);
+            }
             string[] r = record.Split(Delimiter).Where(f => !String.IsNullOrWhiteSpace(f)).ToArray();
 
             if (r.Length != 5 || !DateTime.TryParse(r[4], out DateTime birthDay))
@@ -39,11 +58,6 @@ namespace EmployeeDataParser
             string firstName = r[1].Trim();
             string email = r[2].Trim();
             string favColor = r[3].Trim();
-
-            width[0] = lastName.Length > width[0] ? lastName.Length : width[0];
-            width[1] = firstName.Length > width[1] ? firstName.Length : width[1];
-            width[2] = email.Length > width[2] ? email.Length : width[2];
-            width[3] = favColor.Length > width[3] ? favColor.Length : width[3];
 
             return new(lastName, firstName, email, favColor, birthDay);
         }

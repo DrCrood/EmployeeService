@@ -1,3 +1,5 @@
+using EmployeeServiceAPI.Interface;
+using EmployeeServiceAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +30,7 @@ namespace EmployeeServiceAPI
         {
 
             services.AddControllers();
+            services.AddSingleton<IEmployeeDataService, EmployeeDataService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EmployeeServiceAPI", Version = "v1" });
