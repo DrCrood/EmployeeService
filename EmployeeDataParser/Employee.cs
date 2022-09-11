@@ -32,10 +32,10 @@ namespace EmployeeDataParser
             }
             if(width.Length == 4)
             {
-                FieldWidth[0] = width[0] > FieldWidth[0] ? width[0] : FieldWidth[0];
-                FieldWidth[1] = width[1] > FieldWidth[1] ? width[1] : FieldWidth[1];
-                FieldWidth[2] = width[2] > FieldWidth[2] ? width[2] : FieldWidth[2];
-                FieldWidth[3] = width[3] > FieldWidth[3] ? width[3] : FieldWidth[3];
+                FieldWidth[0] = width[0] > FieldWidth[0]? width[0] : FieldWidth[0];
+                FieldWidth[1] = width[1] > FieldWidth[1]? width[1] : FieldWidth[1];
+                FieldWidth[2] = width[2] > FieldWidth[2]? width[2] : FieldWidth[2];
+                FieldWidth[3] = width[3] > FieldWidth[3]? width[3] : FieldWidth[3];
                 PrintFormatString = $"{{0,-{FieldWidth[0]}}} {{1,-{FieldWidth[1]}}} {{2,-{FieldWidth[2]}}} {{3,-{FieldWidth[3]}}} {{4:d}}";
                 return true;
             }

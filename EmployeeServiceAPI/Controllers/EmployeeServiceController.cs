@@ -43,7 +43,7 @@ namespace EmployeeServiceAPI.Controllers
         [Route("name")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IEnumerable<Employee> GetRecordsSoerByName()
+        public IEnumerable<Employee> GetRecordsSortByLastName()
         {
             return _dataService.GetEmployeeSortByLastName();
         }
@@ -61,7 +61,7 @@ namespace EmployeeServiceAPI.Controllers
         [Route("color")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IEnumerable<Employee> GetRecordSortByColor()
+        public IEnumerable<Employee> GetRecordSortByFavColor()
         {
             return _dataService.GetEmployeeSortByFavriteColor();
         }
