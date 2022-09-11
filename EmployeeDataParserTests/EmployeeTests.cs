@@ -1,7 +1,6 @@
-﻿using EmployeeDataParser;
-using Xunit;
+﻿using Xunit;
 using System;
-using System.Collections.Generic;
+using EmployeeDataParser;
 
 namespace EmployeeDataParserTests
 {

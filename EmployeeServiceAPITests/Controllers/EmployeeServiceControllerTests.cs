@@ -1,12 +1,12 @@
-﻿using EmployeeServiceAPI.Controllers;
-using EmployeeServiceAPI.Interface;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using Moq;
 using Xunit;
 using FluentAssertions;
 using EmployeeDataParser;
 using System.Collections.Generic;
+using EmployeeServiceAPI.Controllers;
+using EmployeeServiceAPI.Interface;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeeServiceAPITests.Controllers
 {

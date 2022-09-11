@@ -1,10 +1,10 @@
-﻿using EmployeeDataParser;
-using Moq;
+﻿using Moq;
 using System;
-using System.Collections.Generic;
-using FluentAssertions;
 using Xunit;
 using System.Linq;
+using FluentAssertions;
+using EmployeeDataParser;
+using System.Collections.Generic;
 
 namespace EmployeeDataParserTests
 {

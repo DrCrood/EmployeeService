@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text.Json;
 using EmployeeDataParser;
+using System.Collections.Generic;
 using EmployeeDataParser.Interfaces;
 using EmployeeServiceAPI.Interface;
 
