@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Collections.Generic;
+using EmployeeDataParser.Interfaces;
 
 namespace EmployeeDataParser
 {
@@ -9,7 +9,7 @@ namespace EmployeeDataParser
     {
         private char Delimiter { get; set; }
 
-        private void SetDelimiter(string line)
+        private void SetDelimiterFormContent(string line)
         {
             if (line.Contains('|'))
             {
@@ -25,11 +25,16 @@ namespace EmployeeDataParser
             }
         }
 
+        public void SetDelimiter(char delimiter)
+        {
+            this.Delimiter = delimiter;
+        }
+
         private Employee ParseLine(String record, int[] width)
         {
             Employee employee = ParseLine(record);
 
-            if(employee is not null)
+            if (employee is not null)
             {
                 width[0] = employee.LastName.Length > width[0] ? employee.LastName.Length : width[0];
                 width[1] = employee.FirstName.Length > width[1] ? employee.FirstName.Length : width[1];
@@ -42,9 +47,9 @@ namespace EmployeeDataParser
 
         public Employee ParseLine(String record, bool resetDelimiter = false)
         {
-            if(resetDelimiter)
+            if (resetDelimiter)
             {
-                SetDelimiter(record);
+                SetDelimiterFormContent(record);
             }
             string[] r = record.Split(Delimiter).Where(f => !String.IsNullOrWhiteSpace(f)).ToArray();
 
@@ -77,7 +82,7 @@ namespace EmployeeDataParser
                 return employees;
             }
 
-            SetDelimiter(lines[0]);            
+            SetDelimiterFormContent(lines[0]);
             foreach (string line in lines)
             {
                 Employee e = ParseLine(line, fieldMaxWidth);

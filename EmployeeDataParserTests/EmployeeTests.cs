@@ -41,7 +41,7 @@ namespace EmployeeDataParserTests
         {
             // Arrange
             Employee employee = new Employee("L", "F", "mail", "red", DateTime.Parse("2001-01-01"));
-            Employee.UpdatePrintFormat(width);
+            Employee.UpdatePrintFormat(width, true);
             // Act
             var result = employee.ToString();
 

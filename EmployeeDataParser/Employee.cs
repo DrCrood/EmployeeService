@@ -24,8 +24,12 @@ namespace EmployeeDataParser
             FavoriteColor = favoriteColor;
             DateOfBirth = dateOfBirth;
         }
-        public static bool UpdatePrintFormat(int[] width)
+        public static bool UpdatePrintFormat(int[] width, bool reset = false)
         {
+            if(reset)
+            {
+                FieldWidth = new int[4];
+            }
             if(width.Length == 4)
             {
                 FieldWidth[0] = width[0] > FieldWidth[0] ? width[0] : FieldWidth[0];
