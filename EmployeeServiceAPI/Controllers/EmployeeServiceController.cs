@@ -29,7 +29,7 @@ namespace EmployeeServiceAPI.Controllers
         public ActionResult<Employee> AddEmployee([FromBody] string record)
         {
             Employee employee = _dataService.ParseLine(record);
-            if(employee == null || _dataService.EmployeeExists(employee))
+            if(employee is null || _dataService.EmployeeExists(employee))
             {
                 return BadRequest();
             }
@@ -47,7 +47,7 @@ namespace EmployeeServiceAPI.Controllers
         public IEnumerable<Employee> GetRecordsSortByLastName()
         {
             var employees = _dataService.GetEmployeeSortByLastName();
-            if(employees == null)
+            if(employees is null)
             {
                 Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
@@ -62,7 +62,7 @@ namespace EmployeeServiceAPI.Controllers
         public IEnumerable<Employee> GetRecordsSortByDob()
         {
             var employees = _dataService.GetEmployeeSortByBirthDate();
-            if (employees == null)
+            if (employees is null)
             {
                 Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
@@ -77,7 +77,7 @@ namespace EmployeeServiceAPI.Controllers
         public IEnumerable<Employee> GetRecordSortByFavColor()
         {
             var employees = _dataService.GetEmployeeSortByFavriteColor();
-            if (employees == null)
+            if (employees is null)
             {
                 Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
