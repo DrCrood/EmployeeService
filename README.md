@@ -19,8 +19,8 @@
 ## Project 2: Employee Data Service API
 - .NET web API with four endpoints:
   - [POST] /records: Accept a string in body to post a employee record. The string must be in one of the above listed format for employee data. The response contains the newly posted employee object.
-  - [GET] /records/color: Returns all employees sorted by their favorite color in Json format.
-  - [GET] /records/birthdate: Retures all employees sorted by their date of birth in Json format.
-  - [GET] /records/name: Returns all employees sorted by their last name in Json format.
+  - [GET] /records/color: Returns all employees sorted by their favorite color in JSON format.
+  - [GET] /records/birthdate: Retures all employees sorted by their date of birth in JSON format.
+  - [GET] /records/name: Returns all employees sorted by their last name in JSON format.
 
 ## Two test projects written with XUnit are included. 
