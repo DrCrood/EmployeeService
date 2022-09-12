@@ -49,6 +49,12 @@ namespace EmployeeDataParser
             return employee;
         }
 
+        /// <summary>
+        /// Parser a string record to a Employee object. 
+        /// </summary>
+        /// <param name="record"></param>
+        /// <param name="resetDelimiter"></param>
+        /// <returns>A Employee object or NULL</returns>
         public Employee? ParseLine(String record, bool resetDelimiter = false)
         {
             if (String.IsNullOrEmpty(record))
@@ -80,7 +86,7 @@ namespace EmployeeDataParser
         /// </summary>
         /// <param name="lines"></param>
         /// <param name="fieldMaxWidth"></param>
-        /// <returns>List of Employees and fieldMaxWidth as array</returns>
+        /// <returns>List of Employees and out fieldMaxWidth as array</returns>
         public List<Employee> Parse(string[] lines, out int[] fieldMaxWidth)
         {
             List<Employee> employees = new List<Employee>();
