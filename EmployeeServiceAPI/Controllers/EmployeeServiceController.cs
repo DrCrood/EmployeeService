@@ -90,6 +90,7 @@ namespace EmployeeServiceAPI.Controllers
         /// </summary>
         /// <returns>Error message</returns>
         [Route("/error")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public ActionResult Error()
         {
             var context = HttpContext.Features.Get<IExceptionHandlerFeature>();
