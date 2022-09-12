@@ -4,7 +4,7 @@
 
 - This is a .NET Console App that can parser input files into a list of Employees. The input file must be in one of the following three formats. Each line is a list of last name, first name, email, favorite color and date of birth.
   
-   >  Lastname | Fname | man@outlook.com | Pink | 2000-02-02T00:00:00
+   >  Lastname | Fname | man@gmail.com | Pink | 2000-02-02T00:00:00
 
    >  Fox, Smart, fox@outlook.com, Green, 2001-11-11T00:00:00
 
@@ -16,11 +16,11 @@
   - Order by last name descending.
 
 
-## Project 2: Employee Data Service Web API
+## Project 2: Employee Data Service API
 - .NET web API with four endpoints:
-  - [POST] /records Accept a string to post a employee record. The string must be in one of the above listed format for employee data.
-  - [GET] /records/color Returns all employees sorted by them favorite color.
-  - [GET] /records/birthdate Retures all employees sorted by their date of birth.
-  - [GET] /records/name Returns all employees sorted by their last name.
+  - [POST] /records: Accept a string in body to post a employee record. The string must be in one of the above listed format for employee data. The response contains the newly posted employee object.
+  - [GET] /records/color: Returns all employees sorted by their favorite color in Json format.
+  - [GET] /records/birthdate: Retures all employees sorted by their date of birth in Json format.
+  - [GET] /records/name: Returns all employees sorted by their last name in Json format.
 
 ## Two test projects written with XUnit are included. 
