@@ -27,22 +27,20 @@ namespace EmployeeServiceAPI.Services
             Employees.AddRange(employees);
         }
 
-        public Employee AddEmployee(string record)
+        public Employee ParseLine(string record)
         {
-            Employee employee = RecordParser.ParseLine(record, true);
-            if(employee is null)
-            {
-                return null;
-            }
+            return RecordParser.ParseLine(record, true);
+        }
 
-            var ee = Employees.FirstOrDefault(e => e.LastName == employee.LastName && e.FirstName == employee.FirstName && e.DateOfBirth == employee.DateOfBirth);
-            if (ee is not null)
-            {
-                return null;
-            }
+        public bool EmployeeExists(Employee employee)
+        {
+            var existEmployee = Employees.FirstOrDefault(e => e.LastName == employee.LastName && e.FirstName == employee.FirstName && e.DateOfBirth == employee.DateOfBirth);
+            return existEmployee != null;
+        }
+
+        public void AddEmployee(Employee employee)
+        {
             Employees.Add(employee);
-
-            return employee;
         }
 
         public List<Employee> GetEmployeeSortByFavriteColor()

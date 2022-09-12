@@ -8,9 +8,11 @@ namespace EmployeeServiceAPI.Interface
     {
         IParser RecordParser { get; }
 
-        public Employee AddEmployee(string record);
+        public void AddEmployee(Employee employee);
+        public bool EmployeeExists(Employee employee);
         public List<Employee> GetEmployeeSortByBirthDate();
         public List<Employee> GetEmployeeSortByFavriteColor();
         public List<Employee> GetEmployeeSortByLastName();
+        public Employee ParseLine(string record);
     }
 }

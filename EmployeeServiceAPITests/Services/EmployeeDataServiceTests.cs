@@ -21,8 +21,7 @@ namespace EmployeeServiceAPITests.Services
                 return line switch
                 {
                     "Invalid" => null,
-                    "Valid" => GetTestEmployee(),
-                    "Duplicate" => GetADuplicateEmployee(),
+                    "Valid" => GetTestEmployee(false),
                     _ => null
                 };
             });
@@ -33,42 +32,57 @@ namespace EmployeeServiceAPITests.Services
         }
 
         [Fact]
-        public void AddEmployee_InvalidRecordData_AddShouldFail()
+        public void ParseLine_InvalidRecordData_AddShouldFail()
         {
             // Arrange
             var service = GetService();
 
             // Act
-            var result = service.AddEmployee("Invalid");
+            var result = service.ParseLine("Invalid");
 
             // Assert
             result.Should().BeNull();
         }
 
         [Fact]
-        public void AddEmployee_ValidRecordData_AddShouldSucceed()
+        public void ParseLine_ValidRecordData_AddShouldSucceed()
         {
             // Arrange
             var service = GetService();
 
             // Act
-            var result = service.AddEmployee("Valid");
+            var result = service.ParseLine("Valid");
 
             // Assert
-            result.Should().BeEquivalentTo(GetTestEmployee());
+            result.Should().BeEquivalentTo(GetTestEmployee(false));
         }
 
         [Fact]
-        public void AddEmployee_DuplicateEmployeeData_AddShouldFail()
+        public void EmployeeExists_DuplicateData_ShouldReturnTrue()
         {
             // Arrange
             var service = GetService();
+            var exist = GetTestEmployee(true);
 
             // Act
-            var result = service.AddEmployee("Duplicate");
+            var result = service.EmployeeExists(exist);
 
             // Assert
-            result.Should().BeNull();
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public void EmployeeExists_NewData_ShouldReturnFalse()
+        {
+            // Arrange
+            var service = GetService();
+            var newEmployee = GetTestEmployee(false);
+
+            // Act
+            var result = service.EmployeeExists(newEmployee);
+
+            // Assert
+            result.Should().BeFalse();
         }
 
         [Fact]
@@ -113,14 +127,16 @@ namespace EmployeeServiceAPITests.Services
             dobs.Should().BeEquivalentTo("2/2/2000 11/11/2001 6/1/2002 4/11/2004 11/14/2009");
         }
 
-        private Employee GetTestEmployee()
+        private Employee GetTestEmployee(bool exist)
         {
-            return new Employee("Fname", "Lname", "Email", "FavColor", DateTime.Parse("2001-01-01"));
-        }
-
-        private Employee GetADuplicateEmployee()
-        {
-            return GetService().GetEmployeeSortByLastName().FirstOrDefault();
+            if(exist)
+            {
+                return GetService().GetEmployeeSortByLastName().FirstOrDefault();
+            }
+            else
+            {
+                return new Employee("Lname","Fname","Email","FavColor",DateTime.Parse("2001-01-01"));
+            }
         }
     }
 }

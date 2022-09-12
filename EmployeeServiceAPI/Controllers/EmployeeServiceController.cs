@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 namespace EmployeeServiceAPI.Controllers
 {
     [ApiController]
-    [Route("records/")]
+    [Route("api/[controller]/records/")]
     public class EmployeeServiceController : ControllerBase
     {
 
@@ -26,15 +26,17 @@ namespace EmployeeServiceAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public Employee AddEmployee([FromBody] string record)
+        public IActionResult AddEmployee([FromBody] string record)
         {
-            Employee employee = _dataService.AddEmployee(record);
-            if(employee == null)
+            Employee employee = _dataService.ParseLine(record);
+            if(employee == null || _dataService.EmployeeExists(employee))
             {
-                Response.StatusCode = StatusCodes.Status400BadRequest;
+                return BadRequest();
             }
 
-            return employee;
+            _dataService.AddEmployee(employee);
+
+            return Ok(employee);
         }
 
         [HttpGet]

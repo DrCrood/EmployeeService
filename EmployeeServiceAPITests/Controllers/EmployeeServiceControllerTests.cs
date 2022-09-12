@@ -20,7 +20,7 @@ namespace EmployeeServiceAPITests.Controllers
             mockEmployeeService = new Mock<IEmployeeDataService>();
             mockLogger = new Mock<ILogger<EmployeeServiceController>>();
 
-            mockEmployeeService.Setup(s => s.AddEmployee(It.IsAny<string>())).Returns( (string line) => ParseLine(line));
+            mockEmployeeService.Setup(s => s.ParseLine(It.IsAny<string>())).Returns( (string line) => ParseLine(line));
             mockEmployeeService.Setup(S => S.GetEmployeeSortByLastName()).Returns(GetEmployeeByProperty("LastName"));
             mockEmployeeService.Setup(s => s.GetEmployeeSortByBirthDate()).Returns(GetEmployeeByProperty("BirthDate"));
             mockEmployeeService.Setup(s => s.GetEmployeeSortByFavriteColor()).Returns(GetEmployeeByProperty("FavColor"));
