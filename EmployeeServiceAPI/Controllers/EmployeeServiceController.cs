@@ -28,13 +28,13 @@ namespace EmployeeServiceAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public Employee AddEmployee([FromBody] string record)
         {
-            if(String.IsNullOrEmpty(record))
+            Employee employee = _dataService.AddEmployee(record);
+            if(employee == null)
             {
-                return null;
+                Response.StatusCode = StatusCodes.Status400BadRequest;
             }
 
-            _logger.LogInformation("Post success.");
-            return _dataService.AddEmployee(record);
+            return employee;
         }
 
         [HttpGet]
@@ -43,7 +43,12 @@ namespace EmployeeServiceAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IEnumerable<Employee> GetRecordsSortByLastName()
         {
-            return _dataService.GetEmployeeSortByLastName();
+            var employees = _dataService.GetEmployeeSortByLastName();
+            if(employees == null)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+            }
+            return employees;
         }
 
         [HttpGet]
@@ -52,7 +57,12 @@ namespace EmployeeServiceAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IEnumerable<Employee> GetRecordsSortByDob()
         {
-            return _dataService.GetEmployeeSortByBirthDate();
+            var employees = _dataService.GetEmployeeSortByBirthDate();
+            if (employees == null)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+            }
+            return employees;
         }
 
         [HttpGet]
@@ -61,7 +71,12 @@ namespace EmployeeServiceAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IEnumerable<Employee> GetRecordSortByFavColor()
         {
-            return _dataService.GetEmployeeSortByFavriteColor();
+            var employees = _dataService.GetEmployeeSortByFavriteColor();
+            if (employees == null)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+            }
+            return employees;
         }
     }
 }

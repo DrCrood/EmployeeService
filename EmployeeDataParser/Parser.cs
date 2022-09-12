@@ -30,8 +30,12 @@ namespace EmployeeDataParser
             this.Delimiter = delimiter;
         }
 
-        private Employee ParseLine(String record, int[] width)
+        private Employee? ParseLine(String record, int[] width)
         {
+            if(String.IsNullOrEmpty(record))
+            {
+                return null;
+            }
             Employee employee = ParseLine(record);
 
             if (employee is not null)
@@ -45,8 +49,12 @@ namespace EmployeeDataParser
             return employee;
         }
 
-        public Employee ParseLine(String record, bool resetDelimiter = false)
+        public Employee? ParseLine(String record, bool resetDelimiter = false)
         {
+            if (String.IsNullOrEmpty(record))
+            {
+                return null;
+            }
             if (resetDelimiter)
             {
                 SetDelimiterFormContent(record);

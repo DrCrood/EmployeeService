@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using EmployeeServiceAPI.Controllers;
 using EmployeeServiceAPI.Interface;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace EmployeeServiceAPITests.Controllers
 {
@@ -33,6 +34,7 @@ namespace EmployeeServiceAPITests.Controllers
         {
             // Arrange
             var employeeServiceController = new EmployeeServiceController(mockLogger.Object, mockEmployeeService.Object);
+            employeeServiceController.ControllerContext.HttpContext = new DefaultHttpContext();
 
             // Act
             var employee = employeeServiceController.AddEmployee(line);
@@ -47,6 +49,7 @@ namespace EmployeeServiceAPITests.Controllers
         {
             // Arrange
             var employeeServiceController = new EmployeeServiceController(mockLogger.Object, mockEmployeeService.Object);
+            employeeServiceController.ControllerContext.HttpContext = new DefaultHttpContext();
 
             // Act
             var result = employeeServiceController.GetRecordsSortByLastName();
@@ -60,6 +63,7 @@ namespace EmployeeServiceAPITests.Controllers
         {
             // Arrange
             var employeeServiceController = new EmployeeServiceController(mockLogger.Object, mockEmployeeService.Object);
+            employeeServiceController.ControllerContext.HttpContext = new DefaultHttpContext();
 
             // Act
             var result = employeeServiceController.GetRecordsSortByDob();
@@ -73,6 +77,7 @@ namespace EmployeeServiceAPITests.Controllers
         {
             // Arrange
             var employeeServiceController = new EmployeeServiceController(mockLogger.Object, mockEmployeeService.Object);
+            employeeServiceController.ControllerContext.HttpContext = new DefaultHttpContext();
 
             // Act
             var result = employeeServiceController.GetRecordSortByFavColor();
