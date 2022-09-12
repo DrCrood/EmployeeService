@@ -5,6 +5,7 @@ using EmployeeDataParser;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace EmployeeServiceAPI.Controllers
 {
@@ -84,11 +85,16 @@ namespace EmployeeServiceAPI.Controllers
             return employees;
         }
 
-        [HttpGet]
+        /// <summary>
+        /// This handles all exceptions in the request pipeline
+        /// </summary>
+        /// <returns>Error message</returns>
         [Route("/error")]
         public ActionResult Error()
         {
-            return Problem();
+            var context = HttpContext.Features.Get<IExceptionHandlerFeature>();
+
+            return Problem( detail: "Exception caught when processing the request.", title: context.Error.Message);
         }
     }
 }
