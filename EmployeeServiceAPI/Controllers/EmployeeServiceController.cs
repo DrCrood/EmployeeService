@@ -18,15 +18,15 @@ namespace EmployeeServiceAPI.Controllers
 
         public EmployeeServiceController(ILogger<EmployeeServiceController> logger, IEmployeeDataService dataService)
         {
-            _logger = logger;
-            _dataService = dataService;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger)); ;
+            _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService)); ;
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult AddEmployee([FromBody] string record)
+        public ActionResult<Employee> AddEmployee([FromBody] string record)
         {
             Employee employee = _dataService.ParseLine(record);
             if(employee == null || _dataService.EmployeeExists(employee))
@@ -35,12 +35,13 @@ namespace EmployeeServiceAPI.Controllers
             }
 
             _dataService.AddEmployee(employee);
-
-            return Ok(employee);
+            
+            return employee;
         }
 
         [HttpGet]
         [Route("name")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IEnumerable<Employee> GetRecordsSortByLastName()
@@ -55,6 +56,7 @@ namespace EmployeeServiceAPI.Controllers
 
         [HttpGet]
         [Route("birthdate")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IEnumerable<Employee> GetRecordsSortByDob()
@@ -69,6 +71,7 @@ namespace EmployeeServiceAPI.Controllers
 
         [HttpGet]
         [Route("color")]
+        [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IEnumerable<Employee> GetRecordSortByFavColor()
