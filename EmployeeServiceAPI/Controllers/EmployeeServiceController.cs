@@ -83,5 +83,12 @@ namespace EmployeeServiceAPI.Controllers
             }
             return employees;
         }
+
+        [HttpGet]
+        [Route("/error")]
+        public ActionResult Error()
+        {
+            return Problem();
+        }
     }
 }
