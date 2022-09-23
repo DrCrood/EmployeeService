@@ -29,10 +29,14 @@ namespace EmployeeServiceAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<Employee> AddEmployee([FromBody] string record)
         {
+            if(string.IsNullOrEmpty(record))
+            {
+                return BadRequest("The record string can not be empty.");
+            }
             Employee employee = _dataService.ParseLine(record);
             if(employee is null || _dataService.EmployeeExists(employee))
             {
-                return BadRequest();
+                return BadRequest("The record is not in right format or the employee already exists.");
             }
 
             _dataService.AddEmployee(employee);
