@@ -6,6 +6,7 @@ using EmployeeServiceAPI.Services;
 using System.Linq;
 using EmployeeDataParser;
 using EmployeeDataParser.Interfaces;
+using System.Collections.Generic;
 
 namespace EmployeeServiceAPITests.Services
 {
@@ -86,14 +87,14 @@ namespace EmployeeServiceAPITests.Services
         }
 
         [Fact]
-        public void GetEmployeeSortByFavriteColor_Sort_ShouldSortByFavColor()
+        public async void GetEmployeeFavriteColors_GET_ShouldReturnFavColors()
         {
             // Arrange
             var service = GetService();
 
             // Act
-            var result = service.GetEmployeeSortByFavriteColor();
-            var favColors = String.Join(" ", result.Select(e => e.FavoriteColor).ToArray());
+            List<Employee> employees = await service.GetEmployeeSortByFavriteColorsAsync().ToListAsync();
+            var favColors = String.Join(" ", employees.Select(e => e.FavoriteColor).ToArray());
 
             // Assert
             favColors.Should().BeEquivalentTo("Blue Green Pink Pink purple");

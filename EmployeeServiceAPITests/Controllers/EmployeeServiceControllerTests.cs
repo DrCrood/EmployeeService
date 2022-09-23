@@ -1,6 +1,7 @@
 ﻿using System;
 using Moq;
 using Xunit;
+using System.Linq;
 using FluentAssertions;
 using EmployeeDataParser;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace EmployeeServiceAPITests.Controllers
             mockEmployeeService.Setup(s => s.ParseLine(It.IsAny<string>())).Returns( (string line) => ParseLine(line));
             mockEmployeeService.Setup(S => S.GetEmployeeSortByLastName()).Returns(GetEmployeeByProperty("LastName"));
             mockEmployeeService.Setup(s => s.GetEmployeeSortByBirthDate()).Returns(GetEmployeeByProperty("BirthDate"));
-            mockEmployeeService.Setup(s => s.GetEmployeeSortByFavriteColor()).Returns(GetEmployeeByProperty("FavColor"));
+            mockEmployeeService.Setup(s => s.GetEmployeeSortByFavriteColorsAsync()).Returns(GetEmployeeAsync());
         }
 
         [Theory]
@@ -73,14 +74,14 @@ namespace EmployeeServiceAPITests.Controllers
         }
 
         [Fact]
-        public void GetRecordSortByFavColor_ValidRequest_ShouldReturnValidList()
+        public async void GetRecordSortByFavColor_ValidRequest_ShouldReturnValidList()
         {
             // Arrange
             var employeeServiceController = new EmployeeServiceController(mockLogger.Object, mockEmployeeService.Object);
             employeeServiceController.ControllerContext.HttpContext = new DefaultHttpContext();
 
             // Act
-            var result = employeeServiceController.GetRecordSortByFavColor();
+            var result = await employeeServiceController.GetRecordSortByFavColorAsync().ToListAsync();
 
             // Assert
             result.Should().BeEquivalentTo(GetEmployeeByProperty("FavColor"));
@@ -105,6 +106,11 @@ namespace EmployeeServiceAPITests.Controllers
                 "BirthDate" => new List<Employee>() {new Employee("", "", "", "", DateTime.Parse("2001-01-01")) },
                 _ => null
             };
+        }
+
+        private static async IAsyncEnumerable<Employee> GetEmployeeAsync()
+        {
+            yield return new Employee("", "", "", "FavColor", DateTime.Parse("2001-01-01"));
         }
     }
 }

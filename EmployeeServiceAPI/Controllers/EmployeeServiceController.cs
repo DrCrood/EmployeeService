@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Diagnostics;
+using System.Threading.Tasks;
 
 namespace EmployeeServiceAPI.Controllers
 {
@@ -79,9 +80,9 @@ namespace EmployeeServiceAPI.Controllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IEnumerable<Employee> GetRecordSortByFavColor()
+        public IAsyncEnumerable<Employee> GetRecordSortByFavColorAsync()
         {
-            var employees = _dataService.GetEmployeeSortByFavriteColor();
+            var employees = _dataService.GetEmployeeSortByFavriteColorsAsync();
             if (employees is null)
             {
                 Response.StatusCode = StatusCodes.Status500InternalServerError;
