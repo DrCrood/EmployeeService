@@ -24,7 +24,7 @@ namespace EmployeeServiceAPITests.Controllers
             mockEmployeeService.Setup(s => s.ParseLine(It.IsAny<string>())).Returns( (string line) => ParseLine(line));
             mockEmployeeService.Setup(S => S.GetEmployeeSortByLastName()).Returns(GetEmployeeByProperty("LastName"));
             mockEmployeeService.Setup(s => s.GetEmployeeSortByBirthDate()).Returns(GetEmployeeByProperty("BirthDate"));
-            mockEmployeeService.Setup(s => s.GetEmployeeSortByFavriteColorsAsync()).Returns(GetEmployeeAsync());
+            mockEmployeeService.Setup(s => s.GetEmployeeSortByFavriteColor()).Returns(GetEmployeeByProperty("FavColor"));
         }
 
         [Theory]
@@ -74,14 +74,14 @@ namespace EmployeeServiceAPITests.Controllers
         }
 
         [Fact]
-        public async void GetRecordSortByFavColor_ValidRequest_ShouldReturnValidList()
+        public void GetRecordSortByFavColor_ValidRequest_ShouldReturnValidList()
         {
             // Arrange
             var employeeServiceController = new EmployeeServiceController(mockLogger.Object, mockEmployeeService.Object);
             employeeServiceController.ControllerContext.HttpContext = new DefaultHttpContext();
 
             // Act
-            var result = await employeeServiceController.GetRecordSortByFavColorAsync().ToListAsync();
+            var result = employeeServiceController.GetRecordSortByFavColor();
 
             // Assert
             result.Should().BeEquivalentTo(GetEmployeeByProperty("FavColor"));

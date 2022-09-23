@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace EmployeeDataParser
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             if (args.Length < 1)
             {
@@ -31,6 +32,8 @@ namespace EmployeeDataParser
             employeeService.PrintEmployeesByFavcolorAndLastName();
             employeeService.PrintEmployeesByDateOfBirth();
             employeeService.PrintEmployeesByLastNameDesc();
+            await employeeService.PrintAllEmployeesAsync();
+
         }
     }
 }

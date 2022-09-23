@@ -87,13 +87,13 @@ namespace EmployeeServiceAPITests.Services
         }
 
         [Fact]
-        public async void GetEmployeeFavriteColors_GET_ShouldReturnFavColors()
+        public void GetEmployeeFavriteColors_GET_ShouldReturnFavColors()
         {
             // Arrange
             var service = GetService();
 
             // Act
-            List<Employee> employees = await service.GetEmployeeSortByFavriteColorsAsync().ToListAsync();
+            IEnumerable<Employee> employees = service.GetEmployeeSortByFavriteColor();
             var favColors = String.Join(" ", employees.Select(e => e.FavoriteColor).ToArray());
 
             // Assert

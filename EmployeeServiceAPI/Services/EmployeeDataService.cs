@@ -44,16 +44,18 @@ namespace EmployeeServiceAPI.Services
             Employees.Add(employee);
         }
 
-        public async IAsyncEnumerable<Employee> GetEmployeeSortByFavriteColorsAsync()
+        public IEnumerable<Employee> GetEmployeeSortByFavriteColor()
         {
-            var employees = Employees.OrderBy(e => e.FavoriteColor).ToList();
-            foreach (var employee in employees)
+            return Employees.OrderBy(e => e.FavoriteColor).ToList();
+        }
+        public async IAsyncEnumerable<Employee> GetEmployeesAllAsync()
+        {
+            foreach (var employee in Employees)
             {
-                await Task.Delay(500);
+                await Task.Delay(300);
                 yield return employee;
             }
         }
-
         public List<Employee> GetEmployeeSortByLastName()
         {
             return Employees.OrderBy(e => e.LastName).ToList();

@@ -11,7 +11,8 @@ namespace EmployeeServiceAPI.Interface
         public void AddEmployee(Employee employee);
         public bool EmployeeExists(Employee employee);
         public List<Employee> GetEmployeeSortByBirthDate();
-        public IAsyncEnumerable<Employee> GetEmployeeSortByFavriteColorsAsync();
+        public IEnumerable<Employee> GetEmployeeSortByFavriteColor();
+        public IAsyncEnumerable<Employee> GetEmployeesAllAsync();
         public List<Employee> GetEmployeeSortByLastName();
         public Employee ParseLine(string record);
     }

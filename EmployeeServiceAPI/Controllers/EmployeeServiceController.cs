@@ -80,14 +80,32 @@ namespace EmployeeServiceAPI.Controllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IAsyncEnumerable<Employee> GetRecordSortByFavColorAsync()
+        public IEnumerable<Employee> GetRecordSortByFavColor()
         {
-            var employees = _dataService.GetEmployeeSortByFavriteColorsAsync();
+            var employees =  _dataService.GetEmployeeSortByFavriteColor();
             if (employees is null)
             {
                 Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
+
             return employees;
+        }
+
+        [HttpGet]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async IAsyncEnumerable<Employee> GetAllRecords()
+        {
+            var employees = _dataService.GetEmployeesAllAsync();
+            if (employees is null)
+            {
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+            }
+            await foreach (Employee employee in employees)
+            {
+                yield return employee;
+            }
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using EmployeeDataParser.Interfaces;
+using System.Threading.Tasks;
 
 namespace EmployeeDataParser
 {
@@ -65,6 +66,25 @@ namespace EmployeeDataParser
         {
             var orderedEmployees = GetEmployeesSortedByLastNameDesc();
             Print(orderedEmployees);
+        }
+
+        public async Task PrintAllEmployeesAsync()
+        {
+            var employees = GetEmployeesAllAsync();
+            Console.WriteLine();
+            await foreach(Employee employee in employees)
+            {
+                Console.WriteLine(employee.ToString());
+            }
+        }
+
+        public async IAsyncEnumerable<Employee> GetEmployeesAllAsync()
+        {
+            foreach (var employee in Employees)
+            {
+                await Task.Delay(300);
+                yield return employee;
+            }
         }
 
         public List<Employee> GetEmployeesSortedByFavColorAndLastName()
